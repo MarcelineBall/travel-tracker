@@ -41,4 +41,10 @@ describe('trip class', function() {
   it('should be able to take in an array of data', function() {
     expect(tripRepo.tripData).to.deep.equal(tripData)
   })
+
+  it('should be able to return a single trip', function() {
+    expect(tripRepo.passTripById(134)).to.deep.equal(tripData[0])
+  })
+
+  
 })
