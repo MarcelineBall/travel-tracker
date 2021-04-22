@@ -2,7 +2,7 @@ import TripRepo from '../src/tripRepo.js'
 import { expect } from 'chai'
 
 describe('trip class', function() {
-  let trip
+  let tripRepo
   let tripData = [
     {
       id: 134,
@@ -37,3 +37,8 @@ describe('trip class', function() {
   it('should be an instance of Trip', function() {
     expect(tripRepo).to.be.an.instanceof(TripRepo)
   })
+
+  it('should be able to take in an array of data', function() {
+    expect(tripRepo.tripData).to.deep.equal(tripData)
+  })
+})
