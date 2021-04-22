@@ -26,7 +26,7 @@ describe('trip class', function() {
     }
   ]
 
-  beforeEach(()
+  beforeEach(function() {
   trip = new Trip(tripData[0])
   })
 
@@ -39,7 +39,7 @@ describe('trip class', function() {
   })
 
   it('should be able to take in data', function() {
-    expect(trip.id).to.equal(134)
+    expect(trip).to.deep.equal(tripData[0])
   })
 
 })
