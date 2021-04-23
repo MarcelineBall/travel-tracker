@@ -4,10 +4,31 @@
     <title>Webpack Starter Kit</title>
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
+    <header>
+      <h1>Trip Tracker</h1>
+      <p id="userDisplay">User name</p>
+      <p id="moneySpent">You have spent $$$</p>
+    </header>
+    <main>
+      <section class="trip-planner">
+        <form>
+          <label for="destination">Destination</label></br>
+          <select id="destination">
+          </select></br>
+          <label for="startDate">Start Date</label></br>
+          <input type="date" id="date"></br>
+          <label for="tripDurationInDays">Trip Duration (Days)</label></br>
+          <input type="number" id="tripDurationInDays" min="1"></br>
+          <label for="numberOfTravelers">Travelers</label></br>
+          <input type="number" id="numberOfTravelers" min="1"></br>
+          <button id="getPriceButton">Estimate Price</button>
+          <input type="submit" value="submit">
+        </form>
+      </section>
+      <section class="trip-card-display" id="tripCardDisplay">
+      </section>
 
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-
+    </main>
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
 </html>
