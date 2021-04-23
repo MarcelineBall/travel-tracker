@@ -23,6 +23,16 @@ describe('trip class', function() {
       duration: 6,
       status:"pending",
       suggestedActivities:[]
+    },
+    {
+      id: 4,
+      userID: 1,
+      destinationID: 50,
+      travelers: 6,
+      date: "2020/02/13",
+      duration: 6,
+      status:"approved",
+      suggestedActivities:[]
     }
   ]
 
@@ -46,5 +56,7 @@ describe('trip class', function() {
     expect(tripRepo.passTripById(134)).to.deep.equal(tripData[0])
   })
 
-  
+  it('should be able to return an array of trips by userID', function() {
+    expect(tripRepo.findTripsForAUser(1)).to.deep.equal([tripData[0], tripData[2]])
+  })
 })
