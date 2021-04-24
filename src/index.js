@@ -17,6 +17,7 @@ const tripCardDisplay = document.querySelector('#tripCardDisplay')
 let tripRepo
 let users
 let destinations
+let user
 
 window.addEventListener('load', loadDataFromAPI);
 
@@ -44,7 +45,7 @@ function getDestinations() {
 function loadDataFromAPI() {
   Promise.all([getUsers(),getTrips(),getDestinations()])
     // .then(response => errorCheck(response))
-    .then(data => loadDOM(data))
+    .then(data => setVariables(data))
     .catch(error => errorCheck(error))
 }
 
@@ -58,12 +59,14 @@ function errorCheck(response) {
   }
 }
 
-function loadDOM([userData, tripData, destinationData]) {
+function setVariables([userData, tripData, destinationData]) {
   users = userData;
+  user = new User(users.travelers[1])
   tripRepo = new TripRepo(tripData)
   destinations = destinationData
-  console.log(tripRepo.tripData)
-  domDisplay.displayTripCard(tripRepo.passTripById(1), tripCardDisplay)
+  loadDOM()
 }
 
-// function
+function loadDOM() {
+  domDisplay.displayTripCard(tripRepo.findTripsForAUser(user.id), tripCardDisplay)
+}
