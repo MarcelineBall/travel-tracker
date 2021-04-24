@@ -71,4 +71,20 @@ function setVariables([userData, tripData, destinationData]) {
 function loadDOM() {
   domDisplay.displayTripCard(tripRepo.findTripsForAUser(user.id), tripCardDisplay)
   domDisplay.displayUserName(user, userNameDisplay)
+  calculateMoneySpent()
+}
+
+function calculateMoneySpent() {
+  const userTrips = tripRepo.findTripsForAUser(user.id)
+  const costPerTrip = userTrips.map(trip => {
+    const userDestination = destinations.destinations.find(destination => destination.id === trip.destinationID)
+    const sum = ((userDestination.estimatedFlightCostPerPerson * trip.travelers) + (userDestination.estimatedLodgingCostPerDay * trip.duration)) * 1.1
+    const roundedSum = Math.round(sum * 100) / 100
+    return roundedSum
+  })
+  const totalCost = costPerTrip.reduce((acc, price) => {
+    acc += price
+    return acc
+  })
+  return totalCost
 }
