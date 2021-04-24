@@ -15,6 +15,7 @@ import User from './user.js';
 const tripPlannerSection = document.querySelector('#tripPlanner')
 const tripCardDisplay = document.querySelector('#tripCardDisplay')
 const userNameDisplay = document.querySelector('#userDisplay')
+const moneySpentDisplay = document.querySelector('#moneySpent')
 let tripRepo
 let users
 let destinations
@@ -71,7 +72,7 @@ function setVariables([userData, tripData, destinationData]) {
 function loadDOM() {
   domDisplay.displayTripCard(tripRepo.findTripsForAUser(user.id), tripCardDisplay)
   domDisplay.displayUserName(user, userNameDisplay)
-  calculateMoneySpent()
+  domDisplay.displayTotalMoneySpent(calculateMoneySpent(), moneySpentDisplay)
 }
 
 function calculateMoneySpent() {

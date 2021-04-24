@@ -18,6 +18,10 @@ let domDisplay = {
 
   displayUserName(user, element) {
     element.innerText = `${user.name}`
+  },
+
+  displayTotalMoneySpent(moneySpent, element) {
+    element.innerText = `You have spent $${moneySpent}`
   }
 }
 export default domDisplay
