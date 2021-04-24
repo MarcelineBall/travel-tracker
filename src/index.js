@@ -52,6 +52,7 @@ function errorCheck(response) {
   if (!response.ok) {
     tripPlannerSection.innerHTML =
       `<h1>We're sorry, there appears to be an error. Please Try again later!</h1>`
+    console.log(response)
   } else {
     return response.json()
   }
@@ -61,5 +62,8 @@ function loadDOM([userData, tripData, destinationData]) {
   users = userData;
   tripRepo = new TripRepo(tripData)
   destinations = destinationData
-  // domDisplay.displayTripCard(tripRepo.passTripById(1), tripCardDisplay)
+  console.log(tripRepo.tripData)
+  domDisplay.displayTripCard(tripRepo.passTripById(1), tripCardDisplay)
 }
+
+// function
