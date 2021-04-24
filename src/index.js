@@ -13,6 +13,7 @@ import Trip from './trip.js';
 import User from './user.js';
 
 const tripPlannerSection = document.querySelector('#tripPlanner')
+const tripCardDisplay = document.querySelector('#tripCardDisplay')
 let tripRepo
 let users
 let destinations
@@ -20,37 +21,45 @@ let destinations
 window.addEventListener('load', loadDataFromAPI);
 
 function getUsers() {
-  fetch('http://localhost:3001/api/v1/travelers')
+  return fetch('http://localhost:3001/api/v1/travelers')
     .then(response => errorCheck(response))
-    .then(data => users = data)
+    .then(data => data)
     .catch(error => errorCheck(error))
 }
 
 function getTrips() {
-  fetch('http://localhost:3001/api/v1/trips')
+  return fetch('http://localhost:3001/api/v1/trips')
     .then(response => errorCheck(response))
-    .then(data => tripRepo = new TripRepo(data))
+    .then(data => data)
     .catch(error => errorCheck(error))
 }
 
 function getDestinations() {
-  fetch('http://localhost:3001/api/v1/destinations')
+  return fetch('http://localhost:3001/api/v1/destinations')
     .then(response => errorCheck(response))
-    .then(data => destinations = data)
+    .then(data => data)
     .catch(error => errorCheck(error))
 }
 
 function loadDataFromAPI() {
   Promise.all([getUsers(),getTrips(),getDestinations()])
-    .then(data => console.log(data))
-    .catch(error => console.log(error))
+    // .then(response => errorCheck(response))
+    .then(data => loadDOM(data))
+    .catch(error => errorCheck(error))
 }
 
 function errorCheck(response) {
   if (!response.ok) {
-    tripPlannerSection.innerHTML(
-      `<h1>We're sorry, there appears to be an error. Please Try again later!</h1>`)
+    tripPlannerSection.innerHTML =
+      `<h1>We're sorry, there appears to be an error. Please Try again later!</h1>`
   } else {
     return response.json()
   }
+}
+
+function loadDOM([userData, tripData, destinationData]) {
+  users = userData;
+  tripRepo = new TripRepo(tripData)
+  destinations = destinationData
+  // domDisplay.displayTripCard(tripRepo.passTripById(1), tripCardDisplay)
 }
