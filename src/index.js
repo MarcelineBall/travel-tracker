@@ -7,16 +7,17 @@ import './css/base.scss';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-import TripRepo from "./tripRepo.js";
-import Trip from "./trip.js";
-import User from "./user.js";
+import domDisplay from './dom-display.js'
+import TripRepo from './tripRepo.js';
+import Trip from './trip.js';
+import User from './user.js';
 
-const tripPlannerSection = document.querySelector("#tripPlanner")
+const tripPlannerSection = document.querySelector('#tripPlanner')
 let tripRepo
 let users
 let destinations
 
-window.addEventListener("load", loadDataFromAPI);
+window.addEventListener('load', loadDataFromAPI);
 
 function getUsers() {
   fetch('http://localhost:3001/api/v1/travelers')
