@@ -14,6 +14,10 @@ let domDisplay = {
       `
       element.insertAdjacentHTML('beforeend', cardHTML)
     })
+  },
+
+  displayUserName(user, element) {
+    element.innerText = `${user.name}`
   }
 }
 export default domDisplay
