@@ -3,38 +3,41 @@ import { expect } from 'chai'
 
 describe('trip class', function() {
   let tripRepo
-  let tripData = [
-    {
-      id: 134,
-      userID: 1,
-      destinationID: 50,
-      travelers: 6,
-      date: "2020/02/13",
-      duration: 6,
-      status:"approved",
-      suggestedActivities:[]
-    },
-    {
-      id: 4,
-      userID: 6,
-      destinationID: 12,
-      travelers: 3,
-      date: "2020/05/22",
-      duration: 6,
-      status:"pending",
-      suggestedActivities:[]
-    },
-    {
-      id: 4,
-      userID: 1,
-      destinationID: 50,
-      travelers: 6,
-      date: "2020/02/13",
-      duration: 6,
-      status:"approved",
-      suggestedActivities:[]
-    }
-  ]
+  let tripData = {
+    trips:
+    [
+      {
+        id: 134,
+        userID: 1,
+        destinationID: 50,
+        travelers: 6,
+        date: "2020/02/13",
+        duration: 6,
+        status:"approved",
+        suggestedActivities:[]
+      },
+      {
+        id: 4,
+        userID: 6,
+        destinationID: 12,
+        travelers: 3,
+        date: "2020/05/22",
+        duration: 6,
+        status:"pending",
+        suggestedActivities:[]
+      },
+      {
+        id: 4,
+        userID: 1,
+        destinationID: 50,
+        travelers: 6,
+        date: "2020/02/13",
+        duration: 6,
+        status:"approved",
+        suggestedActivities:[]
+      }
+    ]
+  }
 
   beforeEach(function() {
   tripRepo = new TripRepo(tripData)
@@ -53,10 +56,10 @@ describe('trip class', function() {
   })
 
   it('should be able to return a single trip', function() {
-    expect(tripRepo.passTripById(134)).to.deep.equal(tripData[0])
+    expect(tripRepo.passTripById(134)).to.deep.equal(tripData.trips[0])
   })
 
   it('should be able to return an array of trips by userID', function() {
-    expect(tripRepo.findTripsForAUser(1)).to.deep.equal([tripData[0], tripData[2]])
+    expect(tripRepo.findTripsForAUser(1)).to.deep.equal([tripData.trips[0], tripData.trips[2]])
   })
 })

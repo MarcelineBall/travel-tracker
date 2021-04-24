@@ -4,11 +4,11 @@ class TripRepo {
   }
 
   passTripById(tripId) {
-    return this.tripData.find(trip => trip.id === tripId)
+    return this.tripData.trips.find(trip => trip.id === tripId)
   }
 
   findTripsForAUser(userId) {
-    return this.tripData.filter(trip => trip.userID === userId)
+    return this.tripData.trips.filter(trip => trip.userID === userId)
   }
 }
 
