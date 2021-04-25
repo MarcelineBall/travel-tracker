@@ -60,6 +60,27 @@ function loadDataFromAPI() {
     .catch(error => errorCheck(error))
 }
 
+function postNewTrip(id, userId, destinationId, numTravelers, date, durationLength) {
+  fetch('http://localhost:3001/api/v1/trips', {
+    method:'POST',
+    body: JSON.stringify({
+      id: id,
+      userID: userId,
+      destinationID: destinationId,
+      travelers: numTravelers,
+      date: date,
+      duration: durationLength,
+      status: 'pending',
+      suggestedActivities: []
+    }),
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(response => errorCheck(response))
+  .then(data => loadDataFromAPI())
+  .then(data => console.log(tripRepo))
+  .catch(error => console.log(error))
+}
+
 function errorCheck(response) {
   if (!response.ok) {
     tripPlannerSection.innerHTML =
@@ -122,5 +143,5 @@ function evaluatePrice() {
 }
 
 function bookTrip() {
-  console.log('test 2 3')
+  // postNewTrip(202, 1, 1, 4, '2021/07/14', 6)
 }
