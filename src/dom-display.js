@@ -30,7 +30,7 @@ let domDisplay = {
       `
         <option value="${destination.id}">${destination.destination}</option>
       `
-      element.insertAdjacentHTML('beforeend', cardHTML)
+      element.insertAdjacentHTML('beforeend', destinationHTML)
     })
   }
 }

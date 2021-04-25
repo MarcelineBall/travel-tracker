@@ -28,6 +28,9 @@ let destinations
 let user
 
 window.addEventListener('load', loadDataFromAPI);
+tripPlannerSection.addEventListener('click', (e) => {
+  buttonHandler(e)
+})
 
 function getUsers() {
   return fetch('http://localhost:3001/api/v1/travelers')
@@ -79,7 +82,7 @@ function loadDOM() {
   domDisplay.displayTripCard(tripRepo.findTripsForAUser(user.id), tripCardDisplay)
   domDisplay.displayUserName(user, userNameDisplay)
   domDisplay.displayTotalMoneySpent(calculateMoneySpent(), moneySpentDisplay)
-  console.log(destinations)
+  domDisplay.displayTripDestinations(destinations.destinations, formDestination)
 }
 
 function calculateMoneySpent() {
@@ -95,4 +98,30 @@ function calculateMoneySpent() {
     return acc
   })
   return totalCost
+}
+
+function buttonHandler(e) {
+  if (e.target.id === 'getPriceButton') {
+    e.preventDefault()
+    evaluatePrice()
+  }
+  if (e.target.id === 'submitButton') {
+    e.preventDefault()
+    bookTrip(e)
+  }
+}
+
+function evaluatePrice() {
+  const inputDestination = parseInt(formDestination.value)
+  const inputTripDuration = parseInt(formTripDuration.value)
+  const inputTravelers = parseInt(formTavelers.value)
+  const userDestination = destinations.destinations.find(destination => {return destination.id === inputDestination})
+  const sum = ((userDestination.estimatedFlightCostPerPerson * inputTravelers) + (userDestination.estimatedLodgingCostPerDay * inputTripDuration)) * 1.1
+  const roundedSum = Math.round(sum * 100) / 100
+  console.log(roundedSum)
+  return roundedSum
+}
+
+function bookTrip() {
+  console.log('test 2 3')
 }
