@@ -1,6 +1,7 @@
 let domDisplay = {
 
   displayTripCard(trips, element) {
+    element.innerHTML = ''
     trips.forEach(trip => {
       let cardHTML =
       `
@@ -22,6 +23,20 @@ let domDisplay = {
 
   displayTotalMoneySpent(moneySpent, element) {
     element.innerText = `You have spent $${moneySpent}`
+  },
+
+  displayTripDestinations(destinations, element) {
+    destinations.forEach(destination => {
+      let destinationHTML =
+      `
+        <option value="${destination.id}">${destination.destination}</option>
+      `
+      element.insertAdjacentHTML('beforeend', destinationHTML)
+    })
+  },
+
+  displayTripPrice(price, element) {
+    element.insertAdjacentHTML('afterend', `<p>The total for the trip will be $${price}`)
   }
 }
 export default domDisplay

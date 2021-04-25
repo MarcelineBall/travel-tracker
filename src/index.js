@@ -16,12 +16,21 @@ const tripPlannerSection = document.querySelector('#tripPlanner')
 const tripCardDisplay = document.querySelector('#tripCardDisplay')
 const userNameDisplay = document.querySelector('#userDisplay')
 const moneySpentDisplay = document.querySelector('#moneySpent')
+const formDestination = document.querySelector('#destination')
+const formStartDate = document.querySelector('#startDate')
+const formTripDuration = document.querySelector('#tripDurationInDays')
+const formTavelers = document.querySelector('#numberOfTravelers')
+const formEstimatePrice = document.querySelector('#getPriceButton')
+const formSubmit = document.querySelector('#submitButton')
 let tripRepo
 let users
 let destinations
 let user
 
 window.addEventListener('load', loadDataFromAPI);
+tripPlannerSection.addEventListener('click', (e) => {
+  buttonHandler(e)
+})
 
 function getUsers() {
   return fetch('http://localhost:3001/api/v1/travelers')
@@ -46,9 +55,28 @@ function getDestinations() {
 
 function loadDataFromAPI() {
   Promise.all([getUsers(),getTrips(),getDestinations()])
-    // .then(response => errorCheck(response))
     .then(data => setVariables(data))
     .catch(error => errorCheck(error))
+}
+
+function postNewTrip(id, userId, destinationId, numTravelers, date, durationLength) {
+  fetch('http://localhost:3001/api/v1/trips', {
+    method:'POST',
+    body: JSON.stringify({
+      id: id,
+      userID: userId,
+      destinationID: destinationId,
+      travelers: numTravelers,
+      date: date,
+      duration: durationLength,
+      status: 'pending',
+      suggestedActivities: []
+    }),
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(response => errorCheck(response))
+  .then(data => loadDataFromAPI())
+  .catch(error => console.log(error))
 }
 
 function errorCheck(response) {
@@ -73,6 +101,7 @@ function loadDOM() {
   domDisplay.displayTripCard(tripRepo.findTripsForAUser(user.id), tripCardDisplay)
   domDisplay.displayUserName(user, userNameDisplay)
   domDisplay.displayTotalMoneySpent(calculateMoneySpent(), moneySpentDisplay)
+  domDisplay.displayTripDestinations(destinations.destinations, formDestination)
 }
 
 function calculateMoneySpent() {
@@ -88,4 +117,42 @@ function calculateMoneySpent() {
     return acc
   })
   return totalCost
+}
+
+function buttonHandler(e) {
+  if (e.target.id === 'getPriceButton') {
+    e.preventDefault()
+    evaluatePrice()
+  }
+  if (e.target.id === 'submitButton') {
+    e.preventDefault()
+    bookTrip(e)
+  }
+}
+
+function evaluatePrice() {
+  const inputDestination = parseInt(formDestination.value)
+  const inputTripDuration = parseInt(formTripDuration.value)
+  const inputTravelers = parseInt(formTavelers.value)
+  const userDestination = destinations.destinations.find(destination => {return destination.id === inputDestination})
+  const sum = ((userDestination.estimatedFlightCostPerPerson * inputTravelers) + (userDestination.estimatedLodgingCostPerDay * inputTripDuration)) * 1.1
+  const roundedSum = Math.round(sum * 100) / 100
+  domDisplay.displayTripPrice(roundedSum, getPriceButton)
+}
+
+function bookTrip() {
+  const inputDestination = parseInt(formDestination.value)
+  const inputTripDuration = parseInt(formTripDuration.value)
+  const inputTravelers = parseInt(formTavelers.value)
+  const tripDate = formStartDate.value.split('-').join('/')
+  const tripId = tripRepo.tripData.trips.length + 1
+  postNewTrip(tripId, user.id, inputDestination, inputTravelers, tripDate, inputTripDuration)
+  clearInputs()
+}
+
+function clearInputs() {
+  formDestination.value = ''
+  formStartDate.value = ''
+  formTavelers.value = ''
+  formTripDuration.value = ''
 }
