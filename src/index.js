@@ -16,6 +16,7 @@ const tripPlannerSection = document.querySelector('#tripPlanner')
 const tripCardDisplay = document.querySelector('#tripCardDisplay')
 const userNameDisplay = document.querySelector('#userDisplay')
 const moneySpentDisplay = document.querySelector('#moneySpent')
+const formDestination = document.querySelector('#destination')
 const formStartDate = document.querySelector('#startDate')
 const formTripDuration = document.querySelector('#tripDurationInDays')
 const formTavelers = document.querySelector('#numberOfTravelers')
@@ -78,6 +79,7 @@ function loadDOM() {
   domDisplay.displayTripCard(tripRepo.findTripsForAUser(user.id), tripCardDisplay)
   domDisplay.displayUserName(user, userNameDisplay)
   domDisplay.displayTotalMoneySpent(calculateMoneySpent(), moneySpentDisplay)
+  console.log(destinations)
 }
 
 function calculateMoneySpent() {

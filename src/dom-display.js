@@ -22,6 +22,16 @@ let domDisplay = {
 
   displayTotalMoneySpent(moneySpent, element) {
     element.innerText = `You have spent $${moneySpent}`
+  },
+
+  displayTripDestinations(destinations, element) {
+    destinations.forEach(destination => {
+      let destinationHTML =
+      `
+        <option value="${destination.id}">${destination.destination}</option>
+      `
+      element.insertAdjacentHTML('beforeend', cardHTML)
+    })
   }
 }
 export default domDisplay
