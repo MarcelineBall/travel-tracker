@@ -16,6 +16,11 @@ const tripPlannerSection = document.querySelector('#tripPlanner')
 const tripCardDisplay = document.querySelector('#tripCardDisplay')
 const userNameDisplay = document.querySelector('#userDisplay')
 const moneySpentDisplay = document.querySelector('#moneySpent')
+const formStartDate = document.querySelector('#startDate')
+const formTripDuration = document.querySelector('#tripDurationInDays')
+const formTavelers = document.querySelector('#numberOfTravelers')
+const formEstimatePrice = document.querySelector('#getPriceButton')
+const formSubmit = document.querySelector('#submitButton')
 let tripRepo
 let users
 let destinations
