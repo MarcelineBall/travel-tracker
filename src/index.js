@@ -118,8 +118,7 @@ function evaluatePrice() {
   const userDestination = destinations.destinations.find(destination => {return destination.id === inputDestination})
   const sum = ((userDestination.estimatedFlightCostPerPerson * inputTravelers) + (userDestination.estimatedLodgingCostPerDay * inputTripDuration)) * 1.1
   const roundedSum = Math.round(sum * 100) / 100
-  console.log(roundedSum)
-  return roundedSum
+  domDisplay.displayTripPrice(roundedSum, getPriceButton)
 }
 
 function bookTrip() {

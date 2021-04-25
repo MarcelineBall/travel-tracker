@@ -32,6 +32,10 @@ let domDisplay = {
       `
       element.insertAdjacentHTML('beforeend', destinationHTML)
     })
+  },
+
+  displayTripPrice(price, element) {
+    element.insertAdjacentHTML('afterend', `<p>The total for the trip will be $${price}`)
   }
 }
 export default domDisplay
