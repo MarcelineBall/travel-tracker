@@ -4,7 +4,7 @@ let domDisplay = {
     trips.forEach(trip => {
       let cardHTML =
       `
-      <article>
+      <article class="trip-card">
       <p>Trip number: ${trip.id}</p></br>
       <p>Destination: ${trip.destinationID}</p></br>
       <p>Departure: ${trip.date}</p></br>
