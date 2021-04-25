@@ -55,7 +55,6 @@ function getDestinations() {
 
 function loadDataFromAPI() {
   Promise.all([getUsers(),getTrips(),getDestinations()])
-    // .then(response => errorCheck(response))
     .then(data => setVariables(data))
     .catch(error => errorCheck(error))
 }
@@ -77,7 +76,6 @@ function postNewTrip(id, userId, destinationId, numTravelers, date, durationLeng
   })
   .then(response => errorCheck(response))
   .then(data => loadDataFromAPI())
-  .then(data => console.log(tripRepo))
   .catch(error => console.log(error))
 }
 
@@ -143,5 +141,18 @@ function evaluatePrice() {
 }
 
 function bookTrip() {
-  // postNewTrip(202, 1, 1, 4, '2021/07/14', 6)
+  const inputDestination = parseInt(formDestination.value)
+  const inputTripDuration = parseInt(formTripDuration.value)
+  const inputTravelers = parseInt(formTavelers.value)
+  const tripDate = formStartDate.value.split('-').join('/')
+  const tripId = tripRepo.tripData.trips.length + 1
+  postNewTrip(tripId, user.id, inputDestination, inputTravelers, tripDate, inputTripDuration)
+  clearInputs()
+}
+
+function clearInputs() {
+  formDestination.value = ''
+  formStartDate.value = ''
+  formTavelers.value = ''
+  formTripDuration.value = ''
 }

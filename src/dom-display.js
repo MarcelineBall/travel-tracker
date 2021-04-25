@@ -1,6 +1,7 @@
 let domDisplay = {
 
   displayTripCard(trips, element) {
+    element.innerHTML = ''
     trips.forEach(trip => {
       let cardHTML =
       `
