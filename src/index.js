@@ -96,7 +96,7 @@ function errorCheck(response) {
 
 function setVariables([userData, tripData, destinationData]) {
   users = userData;
-  user = new User(users.travelers[1])
+  user = new User(users.travelers[2])
   tripRepo = new TripRepo(tripData)
   destinations = destinationData
   loadDOM()
@@ -166,6 +166,13 @@ function clearInputs() {
 }
 
 function login() {
-  
-  domDisplay.displayLoginError(loginPage)
+  let username = formUserName.value
+  let password = formPassword.value
+  if(username === 'traveler7' && password === 'travel2020') {
+    const userNumber = username.split('traveler')
+    user = new User(users.travelers[userNumber[1] - 1])
+    console.log(user)
+  } else {
+    domDisplay.displayLoginError(loginPage)
+  }
 }
