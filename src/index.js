@@ -23,6 +23,9 @@ const formTavelers = document.querySelector('#numberOfTravelers')
 const formEstimatePrice = document.querySelector('#getPriceButton')
 const formSubmit = document.querySelector('#submitButton')
 const loginPage = document.querySelector('#loginPage')
+const formUserName = document.querySelector('#userName')
+const formPassword = document.querySelector('#password')
+const loginButton = document.querySelector('#loginButton')
 let tripRepo
 let users
 let destinations
