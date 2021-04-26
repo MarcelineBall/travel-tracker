@@ -164,3 +164,8 @@ function clearInputs() {
   formTavelers.value = ''
   formTripDuration.value = ''
 }
+
+function login() {
+  
+  domDisplay.displayLoginError(loginPage)
+}
