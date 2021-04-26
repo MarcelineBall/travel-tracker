@@ -26,13 +26,14 @@ const loginPage = document.querySelector('#loginPage')
 const formUserName = document.querySelector('#userName')
 const formPassword = document.querySelector('#password')
 const loginButton = document.querySelector('#loginButton')
+const htmlMain = document.querySelector('#main')
 let tripRepo
 let users
 let destinations
 let user
 
 window.addEventListener('load', loadDataFromAPI);
-tripPlannerSection.addEventListener('click', (e) => {
+htmlMain.addEventListener('click', (e) => {
   buttonHandler(e)
 })
 
@@ -125,12 +126,15 @@ function calculateMoneySpent() {
 
 function buttonHandler(e) {
   if (e.target.id === 'getPriceButton') {
-    // e.preventDefault()
+    e.preventDefault()
     evaluatePrice()
   }
   if (e.target.id === 'submitButton') {
     e.preventDefault()
     bookTrip(e)
+  }
+  if(e.target.id === 'loginButton') {
+    login()
   }
 }
 
