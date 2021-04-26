@@ -27,6 +27,7 @@ const formUserName = document.querySelector('#userName')
 const formPassword = document.querySelector('#password')
 const loginButton = document.querySelector('#loginButton')
 const htmlMain = document.querySelector('#main')
+const userDetailsSection = document.querySelector('#userDetails')
 let tripRepo
 let users
 let destinations
@@ -171,7 +172,11 @@ function login() {
   if(username === 'traveler7' && password === 'travel2020') {
     const userNumber = username.split('traveler')
     user = new User(users.travelers[userNumber[1] - 1])
-    console.log(user)
+    loadDOM()
+    domDisplay.toggleHidden(loginPage)
+    domDisplay.toggleHidden(userDetailsSection)
+    domDisplay.toggleHidden(tripPlanner)
+    domDisplay.toggleHidden(tripCardDisplay)
   } else {
     domDisplay.displayLoginError(loginPage)
   }

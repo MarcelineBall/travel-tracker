@@ -51,6 +51,10 @@ let domDisplay = {
       <button class="login-button" id="loginButton">Log in</button>
     `
     element.insertAdjacentHTML('beforeend', '<h2>Matching user not found. Please check to make sure the username and password are correct and try again</h2>')
+  },
+
+  toggleHidden(element) {
+    element.classList.toggle('hidden')
   }
 }
 export default domDisplay
