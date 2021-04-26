@@ -82,6 +82,7 @@ function postNewTrip(id, userId, destinationId, numTravelers, date, durationLeng
   })
   .then(response => errorCheck(response))
   .then(data => loadDataFromAPI())
+  .then(data => loadDOM())
   .catch(error => console.log(error))
 }
 
@@ -97,10 +98,10 @@ function errorCheck(response) {
 
 function setVariables([userData, tripData, destinationData]) {
   users = userData;
-  user = new User(users.travelers[2])
+  // user = new User(users.travelers[2])
   tripRepo = new TripRepo(tripData)
   destinations = destinationData
-  loadDOM()
+  // loadDOM()
 }
 
 function loadDOM() {
@@ -169,8 +170,9 @@ function clearInputs() {
 function login() {
   let username = formUserName.value
   let password = formPassword.value
-  if(username === 'traveler7' && password === 'travel2020') {
-    const userNumber = username.split('traveler')
+  const userNumber = username.split('traveler')
+  const userExists = users.travelers.some(user => user.id === parseInt(userNumber[1]))
+  if(userExists && password === 'travel2020') {
     user = new User(users.travelers[userNumber[1] - 1])
     loadDOM()
     domDisplay.toggleHidden(loginPage)
