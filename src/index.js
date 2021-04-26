@@ -22,6 +22,7 @@ const formTripDuration = document.querySelector('#tripDurationInDays')
 const formTavelers = document.querySelector('#numberOfTravelers')
 const formEstimatePrice = document.querySelector('#getPriceButton')
 const formSubmit = document.querySelector('#submitButton')
+const loginPage = document.querySelector('#loginPage')
 let tripRepo
 let users
 let destinations
@@ -115,13 +116,13 @@ function calculateMoneySpent() {
   const totalCost = costPerTrip.reduce((acc, price) => {
     acc += price
     return acc
-  })
+  },0)
   return totalCost
 }
 
 function buttonHandler(e) {
   if (e.target.id === 'getPriceButton') {
-    e.preventDefault()
+    // e.preventDefault()
     evaluatePrice()
   }
   if (e.target.id === 'submitButton') {

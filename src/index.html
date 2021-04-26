@@ -7,13 +7,13 @@
   <body>
     <header>
       <h1>Trip Tracker</h1>
-      <section class="user-details">
+      <section class="user-details hidden">
         <p id="userDisplay"></p>
-        <p id="moneySpent">You have spent $$$</p>
+        <p id="moneySpent"></p>
       </section>
     </header>
     <main>
-      <section class="trip-planner" id="tripPlanner">
+      <section class="trip-planner hidden" id="tripPlanner">
         <form>
           <label for="destination">Destination</label></br>
           <select id="destination">
@@ -28,7 +28,16 @@
           <input type="submit" value="Submit" id="submitButton">
         </form>
       </section>
-      <section class="trip-card-display" id="tripCardDisplay">
+      <section class="login-page" id="loginPage">
+        <form>
+          <label for="userName">User name</label>
+          <input type="text" id="userName">
+          <label for="password">Password</label>
+          <input type="password" id="password">
+        </form>
+        <button class="login-button" id="loginButton">Log in</button>
+      </section>
+      <section class="trip-card-display hidden" id="tripCardDisplay">
       </section>
 
     </main>
