@@ -11,6 +11,14 @@ import domDisplay from './dom-display.js'
 import TripRepo from './tripRepo.js';
 import Trip from './trip.js';
 import User from './user.js';
+import {
+  getUsers,
+  getDestinations,
+  getTrips,
+  getAllData,
+  getSingleUser,
+  // postNewTrip
+} from './api-calls'
 
 const tripPlannerSection = document.querySelector('#tripPlanner')
 const tripCardDisplay = document.querySelector('#tripCardDisplay')
@@ -38,71 +46,77 @@ htmlMain.addEventListener('click', (e) => {
   buttonHandler(e)
 })
 
-function getUsers() {
-  return fetch('http://localhost:3001/api/v1/travelers')
-    .then(response => errorCheck(response))
-    .then(data => data)
-    .catch(error => errorCheck(error))
-}
+// function getUsers() {
+//   return fetch('http://localhost:3001/api/v1/travelers')
+//     .then(response => errorCheck(response))
+//     .then(data => data)
+//     .catch(error => errorCheck(error))
+// }
+//
+// function getTrips() {
+//   return fetch('http://localhost:3001/api/v1/trips')
+//     .then(response => errorCheck(response))
+//     .then(data => data)
+//     .catch(error => errorCheck(error))
+// }
+//
+// function getDestinations() {
+//   return fetch('http://localhost:3001/api/v1/destinations')
+//     .then(response => errorCheck(response))
+//     .then(data => data)
+//     .catch(error => errorCheck(error))
+// }
+//
+// function loadDataFromAPI() {
+//   Promise.all([getUsers(),getTrips(),getDestinations()])
+//     .then(data => setVariables(data))
+//     .catch(error => errorCheck(error))
+// }
 
-function getTrips() {
-  return fetch('http://localhost:3001/api/v1/trips')
-    .then(response => errorCheck(response))
-    .then(data => data)
-    .catch(error => errorCheck(error))
-}
+// function getSingleUser(id) {
+//   return fetch(`http://localhost:3001/api/v1/travelers/${id}`)
+//     .then(response => errorCheck(response))
+//     .then(data => user = new User(data))
+//     .then(data => loadDOM())
+//     .then(data => toggleDisplay())
+//     .catch(error => errorCheck(error))
+// }
+//
+// function postNewTrip(id, userId, destinationId, numTravelers, date, durationLength) {
+//   fetch('http://localhost:3001/api/v1/trips', {
+//     method:'POST',
+//     body: JSON.stringify({
+//       id: id,
+//       userID: userId,
+//       destinationID: destinationId,
+//       travelers: numTravelers,
+//       date: date,
+//       duration: durationLength,
+//       status: 'pending',
+//       suggestedActivities: []
+//     }),
+//     headers: {'Content-Type': 'application/json'}
+//   })
+//   .then(response => errorCheck(response))
+//   .then(data => loadDataFromAPI())
+//   .then(data => loadDOM())
+//   .catch(error => console.log(error))
+// }
 
-function getDestinations() {
-  return fetch('http://localhost:3001/api/v1/destinations')
-    .then(response => errorCheck(response))
-    .then(data => data)
-    .catch(error => errorCheck(error))
-}
+// function errorCheck(response) {
+//   if (!response.ok) {
+//     domDisplay.displayFetchError(tripPlannerSection)
+//     tripPlannerSection.innerHTML =
+//       `<h1>We're sorry, there appears to be an error. Please Try again later!</h1>`
+//     console.log(response)
+//   } else {
+//     return response.json()
+//   }
+// }
 
 function loadDataFromAPI() {
-  Promise.all([getUsers(),getTrips(),getDestinations()])
+  getAllData
     .then(data => setVariables(data))
-    .catch(error => errorCheck(error))
-}
-
-function getSingleUser(id) {
-  return fetch(`http://localhost:3001/api/v1/travelers/${id}`)
-    .then(response => errorCheck(response))
-    .then(data => user = new User(data))
-    .then(data => loadDOM())
-    .then(data => toggleDisplay())
-    .catch(error => errorCheck(error))
-}
-
-function postNewTrip(id, userId, destinationId, numTravelers, date, durationLength) {
-  fetch('http://localhost:3001/api/v1/trips', {
-    method:'POST',
-    body: JSON.stringify({
-      id: id,
-      userID: userId,
-      destinationID: destinationId,
-      travelers: numTravelers,
-      date: date,
-      duration: durationLength,
-      status: 'pending',
-      suggestedActivities: []
-    }),
-    headers: {'Content-Type': 'application/json'}
-  })
-  .then(response => errorCheck(response))
-  .then(data => loadDataFromAPI())
-  .then(data => loadDOM())
-  .catch(error => console.log(error))
-}
-
-function errorCheck(response) {
-  if (!response.ok) {
-    tripPlannerSection.innerHTML =
-      `<h1>We're sorry, there appears to be an error. Please Try again later!</h1>`
-    console.log(response)
-  } else {
-    return response.json()
-  }
 }
 
 function setVariables([userData, tripData, destinationData]) {
@@ -181,10 +195,17 @@ function login() {
   const userNumber = username.split('traveler')
   const userExists = users.travelers.some(user => user.id === parseInt(userNumber[1]))
   if(userExists && password === 'travel2020') {
-    getSingleUser(userNumber[1])
+    logUserIn(userNumber[1])
   } else {
     domDisplay.displayLoginError(loginPage)
   }
+}
+
+function logUserIn(userId) {
+  getSingleUser(userId)
+  .then(data => user = new User(data))
+  .then(data => loadDOM())
+  .then(data => toggleDisplay())
 }
 
 function toggleDisplay() {
@@ -193,3 +214,4 @@ function toggleDisplay() {
   domDisplay.toggleHidden(tripPlanner)
   domDisplay.toggleHidden(tripCardDisplay)
 }
+export default tripPlannerSection

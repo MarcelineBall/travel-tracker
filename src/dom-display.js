@@ -55,6 +55,11 @@ let domDisplay = {
 
   toggleHidden(element) {
     element.classList.toggle('hidden')
+  },
+
+  displayFetchError(element) {
+    element.innerHTML =
+      `<h1>We're sorry, there appears to be an error. Please Try again later!</h1>`
   }
 }
 export default domDisplay
