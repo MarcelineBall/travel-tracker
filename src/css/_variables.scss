@@ -2,12 +2,15 @@ $primary-color: #DDC3D0;
 $secondary-color: #DBFCFF;
 $detail-color: #DBDAEA;
 $shadow: 0px 5px 10px #905170;
+$round-edges: 13px;
 
 @mixin form-build() {
   display: flex;
   flex-direction: column;
-  margin: 0 15vw;
+  margin: 0 10vw;
   padding: 2vh 1vw;
   background: $detail-color;
   border: 1px solid black;
+  border-radius: $round-edges;
+  box-shadow: $shadow;
 }
