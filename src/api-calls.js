@@ -1,30 +1,38 @@
 import domDisplay from './dom-display.js'
 import tripPlannerSection from './index.js'
 
-const getUsers = fetch('http://localhost:3001/api/v1/travelers')
+const getUsers = () => {
+  return fetch('http://localhost:3001/api/v1/travelers')
     .then(response => errorCheck(response))
     .then(data => {
       return data
     })
+}
 
-const getTrips = fetch('http://localhost:3001/api/v1/trips')
+const getTrips = () => {
+  return fetch('http://localhost:3001/api/v1/trips')
     .then(response => errorCheck(response))
     .then(data => {
       return data
     })
+}
 
-const getDestinations = fetch('http://localhost:3001/api/v1/destinations')
+const getDestinations = () => {
+  return fetch('http://localhost:3001/api/v1/destinations')
     .then(response => errorCheck(response))
     .then(data => {
       return data
     })
+}
 
-const getAllData = Promise.all([getUsers, getTrips, getDestinations])
+const getAllData = () => {
+  return Promise.all([getUsers(), getTrips(), getDestinations()])
+    .then(console.log('done'))
     .then(data => {
       return data
     })
     .catch(error => errorCheck(error))
-
+}
 
 const getSingleUser = (id) => {
   return fetch(`http://localhost:3001/api/v1/travelers/${id}`)
@@ -34,27 +42,28 @@ const getSingleUser = (id) => {
     })
     .catch(error => errorCheck(error))
 }
-//
-// const postNewTrip = (id, userId, destinationId, numTravelers, date, durationLength) => {
-//   fetch('http://localhost:3001/api/v1/trips', {
-//     method:'POST',
-//     body: JSON.stringify({
-//       id: id,
-//       userID: userId,
-//       destinationID: destinationId,
-//       travelers: numTravelers,
-//       date: date,
-//       duration: durationLength,
-//       status: 'pending',
-//       suggestedActivities: []
-//     }),
-//     headers: {'Content-Type': 'application/json'}
-//   })
-//   .then(response => errorCheck(response))
-//   .then(data => loadDataFromAPI())
-//   .then(data => loadDOM())
-//   .catch(error => console.log(error))
-// }
+
+const postNewTrip = (id, userId, destinationId, numTravelers, date, durationLength) => {
+  return fetch('http://localhost:3001/api/v1/trips', {
+    method:'POST',
+    body: JSON.stringify({
+      id: id,
+      userID: userId,
+      destinationID: destinationId,
+      travelers: numTravelers,
+      date: date,
+      duration: durationLength,
+      status: 'pending',
+      suggestedActivities: []
+    }),
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(response => errorCheck(response))
+  .then(data => {
+    return data
+  })
+  .catch(error => console.log(error))
+}
 
 function errorCheck(response) {
   if (!response.ok) {
@@ -71,5 +80,5 @@ export {
   getTrips,
   getAllData,
   getSingleUser,
-  // postNewTrip
+  postNewTrip
 }

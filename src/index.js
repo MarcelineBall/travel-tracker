@@ -17,7 +17,7 @@ import {
   getTrips,
   getAllData,
   getSingleUser,
-  // postNewTrip
+  postNewTrip
 } from './api-calls'
 
 const tripPlannerSection = document.querySelector('#tripPlanner')
@@ -115,7 +115,7 @@ htmlMain.addEventListener('click', (e) => {
 // }
 
 function loadDataFromAPI() {
-  getAllData
+  getAllData()
     .then(data => setVariables(data))
 }
 
@@ -178,8 +178,14 @@ function bookTrip() {
   const inputTravelers = parseInt(formTavelers.value)
   const tripDate = formStartDate.value.split('-').join('/')
   const tripId = tripRepo.tripData.trips.length + 1
-  postNewTrip(tripId, user.id, inputDestination, inputTravelers, tripDate, inputTripDuration)
+  callPostRequest(tripId, user.id, inputDestination, inputTravelers, tripDate, inputTripDuration)
   clearInputs()
+}
+
+function callPostRequest(tripId, userId, inputDestination, inputTravelers, tripDate, inputTripDuration) {
+  postNewTrip(tripId, userId, inputDestination, inputTravelers, tripDate, inputTripDuration)
+    .then(data => loadDataFromAPI())
+    .then(data => loadDOM())
 }
 
 function clearInputs() {
@@ -214,4 +220,5 @@ function toggleDisplay() {
   domDisplay.toggleHidden(tripPlanner)
   domDisplay.toggleHidden(tripCardDisplay)
 }
+
 export default tripPlannerSection
