@@ -27,7 +27,6 @@ const getDestinations = () => {
 
 const getAllData = () => {
   return Promise.all([getUsers(), getTrips(), getDestinations()])
-    .then(console.log('done'))
     .then(data => {
       return data
     })
