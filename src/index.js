@@ -143,6 +143,7 @@ function buttonHandler(e) {
     bookTrip(e)
   }
   if(e.target.id === 'loginButton') {
+    e.preventDefault()
     login()
   }
 }
