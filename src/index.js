@@ -175,11 +175,15 @@ function login() {
   if(userExists && password === 'travel2020') {
     user = new User(users.travelers[userNumber[1] - 1])
     loadDOM()
-    domDisplay.toggleHidden(loginPage)
-    domDisplay.toggleHidden(userDetailsSection)
-    domDisplay.toggleHidden(tripPlanner)
-    domDisplay.toggleHidden(tripCardDisplay)
+    toggleDisplay()
   } else {
     domDisplay.displayLoginError(loginPage)
   }
 }
+
+function toggleDisplay() [
+  domDisplay.toggleHidden(loginPage)
+  domDisplay.toggleHidden(userDetailsSection)
+  domDisplay.toggleHidden(tripPlanner)
+  domDisplay.toggleHidden(tripCardDisplay)
+]
