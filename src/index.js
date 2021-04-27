@@ -65,6 +65,15 @@ function loadDataFromAPI() {
     .catch(error => errorCheck(error))
 }
 
+function getSingleUser(id) {
+  return fetch(`http://localhost:3001/api/v1/travelers/${id}`)
+    .then(response => errorCheck(response))
+    .then(data => user = new User(data))
+    .then(data => loadDOM())
+    .then(data => toggleDisplay())
+    .catch(error => errorCheck(error))
+}
+
 function postNewTrip(id, userId, destinationId, numTravelers, date, durationLength) {
   fetch('http://localhost:3001/api/v1/trips', {
     method:'POST',
@@ -173,17 +182,15 @@ function login() {
   const userNumber = username.split('traveler')
   const userExists = users.travelers.some(user => user.id === parseInt(userNumber[1]))
   if(userExists && password === 'travel2020') {
-    user = new User(users.travelers[userNumber[1] - 1])
-    loadDOM()
-    toggleDisplay()
+    getSingleUser(userNumber[1])
   } else {
     domDisplay.displayLoginError(loginPage)
   }
 }
 
-function toggleDisplay() [
+function toggleDisplay() {
   domDisplay.toggleHidden(loginPage)
   domDisplay.toggleHidden(userDetailsSection)
   domDisplay.toggleHidden(tripPlanner)
   domDisplay.toggleHidden(tripCardDisplay)
-]
+}
