@@ -22,13 +22,19 @@ const formTripDuration = document.querySelector('#tripDurationInDays')
 const formTavelers = document.querySelector('#numberOfTravelers')
 const formEstimatePrice = document.querySelector('#getPriceButton')
 const formSubmit = document.querySelector('#submitButton')
+const loginPage = document.querySelector('#loginPage')
+const formUserName = document.querySelector('#userName')
+const formPassword = document.querySelector('#password')
+const loginButton = document.querySelector('#loginButton')
+const htmlMain = document.querySelector('#main')
+const userDetailsSection = document.querySelector('#userDetails')
 let tripRepo
 let users
 let destinations
 let user
 
 window.addEventListener('load', loadDataFromAPI);
-tripPlannerSection.addEventListener('click', (e) => {
+htmlMain.addEventListener('click', (e) => {
   buttonHandler(e)
 })
 
@@ -59,6 +65,15 @@ function loadDataFromAPI() {
     .catch(error => errorCheck(error))
 }
 
+function getSingleUser(id) {
+  return fetch(`http://localhost:3001/api/v1/travelers/${id}`)
+    .then(response => errorCheck(response))
+    .then(data => user = new User(data))
+    .then(data => loadDOM())
+    .then(data => toggleDisplay())
+    .catch(error => errorCheck(error))
+}
+
 function postNewTrip(id, userId, destinationId, numTravelers, date, durationLength) {
   fetch('http://localhost:3001/api/v1/trips', {
     method:'POST',
@@ -76,6 +91,7 @@ function postNewTrip(id, userId, destinationId, numTravelers, date, durationLeng
   })
   .then(response => errorCheck(response))
   .then(data => loadDataFromAPI())
+  .then(data => loadDOM())
   .catch(error => console.log(error))
 }
 
@@ -91,10 +107,8 @@ function errorCheck(response) {
 
 function setVariables([userData, tripData, destinationData]) {
   users = userData;
-  user = new User(users.travelers[1])
   tripRepo = new TripRepo(tripData)
   destinations = destinationData
-  loadDOM()
 }
 
 function loadDOM() {
@@ -115,7 +129,7 @@ function calculateMoneySpent() {
   const totalCost = costPerTrip.reduce((acc, price) => {
     acc += price
     return acc
-  })
+  },0)
   return totalCost
 }
 
@@ -127,6 +141,9 @@ function buttonHandler(e) {
   if (e.target.id === 'submitButton') {
     e.preventDefault()
     bookTrip(e)
+  }
+  if(e.target.id === 'loginButton') {
+    login()
   }
 }
 
@@ -155,4 +172,23 @@ function clearInputs() {
   formStartDate.value = ''
   formTavelers.value = ''
   formTripDuration.value = ''
+}
+
+function login() {
+  let username = formUserName.value
+  let password = formPassword.value
+  const userNumber = username.split('traveler')
+  const userExists = users.travelers.some(user => user.id === parseInt(userNumber[1]))
+  if(userExists && password === 'travel2020') {
+    getSingleUser(userNumber[1])
+  } else {
+    domDisplay.displayLoginError(loginPage)
+  }
+}
+
+function toggleDisplay() {
+  domDisplay.toggleHidden(loginPage)
+  domDisplay.toggleHidden(userDetailsSection)
+  domDisplay.toggleHidden(tripPlanner)
+  domDisplay.toggleHidden(tripCardDisplay)
 }
