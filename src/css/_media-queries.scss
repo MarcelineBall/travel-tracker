@@ -1,0 +1,14 @@
+@media screen and (max-width: 900px) {
+  article{
+    flex-basis: 45vw
+  }
+}
+@media screen and (max-width: 650px) {
+  article{
+    flex-basis: 95vw
+  }
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+}
