@@ -10,6 +10,7 @@ class TripRepo {
   findTripsForAUser(userId) {
     return this.tripData.trips.filter(trip => trip.userID === userId)
   }
+
 }
 
 export default TripRepo

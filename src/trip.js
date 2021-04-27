@@ -1,5 +1,5 @@
 class Trip {
-  constructor(info) {
+  constructor(info, destinationData) {
     this.id = info.id;
     this.userID = info.userID;
     this.destinationID = info.destinationID;
@@ -8,6 +8,14 @@ class Trip {
     this.duration = info.duration;
     this.status = info.status;
     this.suggestedActivities = info.suggestedActivities;
+    this.destinationName = this.findDestinationName(destinationData);
+  }
+
+  findDestinationName(destinationData) {
+    const foundDestination = destinationData.find(destination => {
+      return destination.id === this.destinationID
+    })
+    return foundDestination.destination
   }
 }
 

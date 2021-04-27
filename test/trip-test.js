@@ -25,9 +25,34 @@ describe('trip class', function() {
       suggestedActivities:[]
     }
   ]
+  let destinationData = [
+    {
+      id: 50,
+      destination: "Denver, USA",
+    },
+    {
+      id: 4,
+      destination: "Chicago, USA",
+    },
+    {
+      id: 12,
+      destination: "Detroit, USA",
+    }
+  ]
+  let finalData = {
+    id: 134,
+    userID: 1,
+    destinationID: 50,
+    travelers: 6,
+    date: "2020/02/13",
+    duration: 6,
+    status:"approved",
+    suggestedActivities:[],
+    destinationName: "Denver, USA"
+  }
 
   beforeEach(function() {
-  trip = new Trip(tripData[0])
+  trip = new Trip(tripData[0], destinationData)
   })
 
   it('should be a function', function() {
@@ -39,7 +64,10 @@ describe('trip class', function() {
   })
 
   it('should be able to take in data', function() {
-    expect(trip).to.deep.equal(tripData[0])
+    expect(trip).to.deep.equal(finalData)
   })
 
+  it('should be able to find a destination name by id', function() {
+    expect(trip.findDestinationName(destinationData)).to.equal("Denver, USA")
+  })
 })
