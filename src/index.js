@@ -107,10 +107,8 @@ function errorCheck(response) {
 
 function setVariables([userData, tripData, destinationData]) {
   users = userData;
-  // user = new User(users.travelers[2])
   tripRepo = new TripRepo(tripData)
   destinations = destinationData
-  // loadDOM()
 }
 
 function loadDOM() {
