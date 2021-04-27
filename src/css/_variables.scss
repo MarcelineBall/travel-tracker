@@ -1,3 +1,13 @@
 $primary-color: #DDC3D0;
 $secondary-color: #DBFCFF;
 $detail-color: #DBDAEA;
+$shadow: 0px 5px 10px #905170;
+
+@mixin form-build() {
+  display: flex;
+  flex-direction: column;
+  margin: 0 15vw;
+  padding: 2vh 1vw;
+  background: $detail-color;
+  border: 1px solid black;
+}
