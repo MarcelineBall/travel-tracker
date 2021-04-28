@@ -71,6 +71,10 @@ describe('trip class', function() {
     expect(trip.findDestinationName(destinationData)).to.equal('Denver, USA')
   })
 
+  it('should be able to return an error message if the data is undefined', function() {
+    expect(trip.findDestinationName(undefined)).to.equal('error: Improper destination data')
+  })
+
   it('should be able to return an error message if the id doesn\'t match', function() {
     expect(trip.findDestinationName([{id: 1, destination: 'San Fransisco'}])).to.equal('error: Destination unknown')
   })
