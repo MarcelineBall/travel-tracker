@@ -21,3 +21,14 @@ This project is aiming to give a basic version of a travel site, where users can
 * JavaScript
 * Mocha/Chai
 * Webpack
+
+## Preview
+Login Page
+
+<img width="1125" alt="Screen Shot 2021-04-27 at 8 43 56 PM" src="https://user-images.githubusercontent.com/65052658/116338776-82217e00-a799-11eb-974e-9921f5ac5f84.png">
+Trip Booking
+
+<img width="1121" alt="Screen Shot 2021-04-27 at 8 44 44 PM" src="https://user-images.githubusercontent.com/65052658/116338783-83eb4180-a799-11eb-876b-f6e132f1a5a4.png">
+Your Trips
+
+<img width="1162" alt="Screen Shot 2021-04-27 at 8 45 00 PM" src="https://user-images.githubusercontent.com/65052658/116338786-85b50500-a799-11eb-8b5f-5cd776c512b5.png">
