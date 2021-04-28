@@ -1,22 +1,15 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
+// IMPORTS
 import './css/base.scss';
-
 import domDisplay from './dom-display.js'
 import TripRepo from './tripRepo.js';
-import Trip from './trip.js';
 import User from './user.js';
 import {
-  getUsers,
-  getDestinations,
-  getTrips,
   getAllData,
   getSingleUser,
   postNewTrip
 } from './api-calls'
 
+// QUERY SELECTORS
 const tripPlannerSection = document.querySelector('#tripPlanner')
 const tripCardDisplay = document.querySelector('#tripCardDisplay')
 const userNameDisplay = document.querySelector('#userDisplay')
@@ -25,12 +18,9 @@ const formDestination = document.querySelector('#destination')
 const formStartDate = document.querySelector('#startDate')
 const formTripDuration = document.querySelector('#tripDurationInDays')
 const formTavelers = document.querySelector('#numberOfTravelers')
-const formEstimatePrice = document.querySelector('#getPriceButton')
-const formSubmit = document.querySelector('#submitButton')
 const loginPage = document.querySelector('#loginPage')
 const formUserName = document.querySelector('#userName')
 const formPassword = document.querySelector('#password')
-const loginButton = document.querySelector('#loginButton')
 const htmlMain = document.querySelector('#main')
 const userDetailsSection = document.querySelector('#userDetails')
 const tripErrorDisplay = document.querySelector('#tripErrorDisplay')
@@ -39,11 +29,13 @@ let users
 let destinations
 let user
 
+// EVENT LISTENERS
 window.addEventListener('load', loadDataFromAPI);
 htmlMain.addEventListener('click', (e) => {
   buttonHandler(e)
 })
 
+// FUNCTIONS
 function loadDataFromAPI() {
   getAllData()
     .then(data => setVariables(data))
@@ -73,7 +65,7 @@ function calculateMoneySpent() {
   const totalCost = costPerTrip.reduce((acc, price) => {
     acc += price
     return acc
-  },0)
+  }, 0)
   return totalCost
 }
 
@@ -86,7 +78,7 @@ function buttonHandler(e) {
     e.preventDefault()
     bookTrip(e)
   }
-  if(e.target.id === 'loginButton') {
+  if (e.target.id === 'loginButton') {
     e.preventDefault()
     login()
   }
@@ -97,7 +89,9 @@ function evaluatePrice() {
   const inputTripDuration = parseInt(formTripDuration.value)
   const inputTravelers = parseInt(formTavelers.value)
   if (!isNaN(inputTripDuration) && !isNaN(inputTravelers)) {
-    const userDestination = destinations.destinations.find(destination => {return destination.id === inputDestination})
+    const userDestination = destinations.destinations.find(destination => {
+      return destination.id === inputDestination
+    })
     const sum = ((userDestination.estimatedFlightCostPerPerson * inputTravelers) + (userDestination.estimatedLodgingCostPerDay * inputTripDuration)) * 1.1
     const roundedSum = Math.round(sum * 100) / 100
     domDisplay.displayTripPrice(roundedSum, tripErrorDisplay)
@@ -141,7 +135,7 @@ function login() {
   let password = formPassword.value
   const userNumber = username.split('traveler')
   const userExists = users.travelers.some(user => user.id === parseInt(userNumber[1]))
-  if(userExists && password === 'travel2020') {
+  if (userExists && password === 'travel2020') {
     logUserIn(userNumber[1])
   } else {
     domDisplay.displayLoginError(loginPage)
@@ -150,17 +144,18 @@ function login() {
 
 function logUserIn(userId) {
   getSingleUser(userId)
-  .then(data => user = new User(data))
-  .then(data => loadDataFromAPI())
-  .then(data => loadDOM())
-  .then(data => toggleDisplay())
+    .then(data => user = new User(data))
+    .then(data => loadDataFromAPI())
+    .then(data => loadDOM())
+    .then(data => toggleDisplay())
 }
 
 function toggleDisplay() {
   domDisplay.toggleHidden(loginPage)
   domDisplay.toggleHidden(userDetailsSection)
-  domDisplay.toggleHidden(tripPlanner)
+  domDisplay.toggleHidden(tripPlannerSection)
   domDisplay.toggleHidden(tripCardDisplay)
 }
 
+// EXPORTS
 export default tripPlannerSection

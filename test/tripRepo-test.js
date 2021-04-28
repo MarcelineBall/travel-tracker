@@ -13,8 +13,8 @@ describe('trip class', function() {
         travelers: 6,
         date: "2020/02/13",
         duration: 6,
-        status:"approved",
-        suggestedActivities:[]
+        status: "approved",
+        suggestedActivities: []
       },
       {
         id: 4,
@@ -23,8 +23,8 @@ describe('trip class', function() {
         travelers: 3,
         date: "2020/05/22",
         duration: 6,
-        status:"pending",
-        suggestedActivities:[]
+        status: "pending",
+        suggestedActivities: []
       },
       {
         id: 4,
@@ -33,8 +33,8 @@ describe('trip class', function() {
         travelers: 6,
         date: "2020/02/13",
         duration: 6,
-        status:"approved",
-        suggestedActivities:[]
+        status: "approved",
+        suggestedActivities: []
       }
     ]
   }
@@ -60,8 +60,8 @@ describe('trip class', function() {
       travelers: 6,
       date: "2020/02/13",
       duration: 6,
-      status:"approved",
-      suggestedActivities:[],
+      status: "approved",
+      suggestedActivities: [],
       destinationName: "Denver, USA"
     },
     {
@@ -71,14 +71,14 @@ describe('trip class', function() {
       travelers: 6,
       date: "2020/02/13",
       duration: 6,
-      status:"approved",
-      suggestedActivities:[],
+      status: "approved",
+      suggestedActivities: [],
       destinationName: "Denver, USA"
     }
   ]
 
   beforeEach(function() {
-  tripRepo = new TripRepo(tripData)
+    tripRepo = new TripRepo(tripData)
   })
 
   it('should be a function', function() {
