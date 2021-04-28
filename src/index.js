@@ -95,10 +95,14 @@ function evaluatePrice() {
   const inputDestination = parseInt(formDestination.value)
   const inputTripDuration = parseInt(formTripDuration.value)
   const inputTravelers = parseInt(formTavelers.value)
-  const userDestination = destinations.destinations.find(destination => {return destination.id === inputDestination})
-  const sum = ((userDestination.estimatedFlightCostPerPerson * inputTravelers) + (userDestination.estimatedLodgingCostPerDay * inputTripDuration)) * 1.1
-  const roundedSum = Math.round(sum * 100) / 100
-  domDisplay.displayTripPrice(roundedSum, getPriceButton)
+  if (!isNaN(inputTripDuration) && !isNaN(inputTravelers)) {
+    const userDestination = destinations.destinations.find(destination => {return destination.id === inputDestination})
+    const sum = ((userDestination.estimatedFlightCostPerPerson * inputTravelers) + (userDestination.estimatedLodgingCostPerDay * inputTripDuration)) * 1.1
+    const roundedSum = Math.round(sum * 100) / 100
+    domDisplay.displayTripPrice(roundedSum, getPriceButton)
+  }else {
+    console.log('dunno')
+  }
 }
 
 function bookTrip() {
@@ -106,9 +110,11 @@ function bookTrip() {
   const inputTripDuration = parseInt(formTripDuration.value)
   const inputTravelers = parseInt(formTavelers.value)
   const tripDate = formStartDate.value.split('-').join('/')
-  const tripId = tripRepo.tripData.trips.length + 1
-  callPostRequest(tripId, user.id, inputDestination, inputTravelers, tripDate, inputTripDuration)
-  clearInputs()
+  if (!isNaN(inputTripDuration) && !isNaN(inputTravelers)) {
+    const tripId = tripRepo.tripData.trips.length + 1
+    callPostRequest(tripId, user.id, inputDestination, inputTravelers, tripDate, inputTripDuration)
+    clearInputs()
+  }
 }
 
 function callPostRequest(tripId, userId, inputDestination, inputTravelers, tripDate, inputTripDuration) {
