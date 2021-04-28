@@ -15,7 +15,11 @@ class Trip {
     const foundDestination = destinationStuff.find(destination => {
       return destination.id === this.destinationID
     })
-    return foundDestination.destination
+    if (foundDestination) {
+      return foundDestination.destination
+    } else {
+      return 'error: Destination unknown'
+    }
   }
 }
 
