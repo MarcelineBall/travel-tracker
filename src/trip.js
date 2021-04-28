@@ -11,8 +11,8 @@ class Trip {
     this.destinationName = this.findDestinationName(destinationData);
   }
 
-  findDestinationName(destinationStuff) {
-    const foundDestination = destinationStuff.find(destination => {
+  findDestinationName(destinationInfo) {
+    const foundDestination = destinationInfo.find(destination => {
       return destination.id === this.destinationID
     })
     if (foundDestination) {
