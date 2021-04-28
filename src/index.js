@@ -39,10 +39,15 @@ let users
 let destinations
 let user
 
-window.addEventListener('load', loadDataFromAPI);
+window.addEventListener('load', loadPage);
 htmlMain.addEventListener('click', (e) => {
   buttonHandler(e)
 })
+
+function loadPage() {
+  loadDataFromAPI()
+  logUserIn(2)
+}
 
 function loadDataFromAPI() {
   getAllData()
@@ -153,7 +158,7 @@ function logUserIn(userId) {
   .then(data => user = new User(data))
   .then(data => loadDataFromAPI())
   .then(data => loadDOM())
-  .then(data => toggleDisplay())
+  // .then(data => toggleDisplay())
 }
 
 function toggleDisplay() {
