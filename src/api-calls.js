@@ -44,7 +44,7 @@ const getSingleUser = (id) => {
 
 const postNewTrip = (id, userId, destinationId, numTravelers, date, durationLength) => {
   return fetch('http://localhost:3001/api/v1/trips', {
-    method:'POST',
+    method: 'POST',
     body: JSON.stringify({
       id: id,
       userID: userId,
@@ -57,11 +57,11 @@ const postNewTrip = (id, userId, destinationId, numTravelers, date, durationLeng
     }),
     headers: {'Content-Type': 'application/json'}
   })
-  .then(response => errorCheck(response))
-  .then(data => {
-    return data
-  })
-  .catch(error => console.log(error))
+    .then(response => errorCheck(response))
+    .then(data => {
+      return data
+    })
+    .catch(error => console.log(error))
 }
 
 function errorCheck(response) {
