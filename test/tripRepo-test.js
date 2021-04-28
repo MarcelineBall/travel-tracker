@@ -1,4 +1,5 @@
 import TripRepo from '../src/tripRepo.js'
+import Trip from '../src/trip.js'
 import { expect } from 'chai'
 
 describe('trip class', function() {
@@ -103,5 +104,11 @@ describe('trip class', function() {
 
   it('should be able to return an array of trips by userID', function() {
     expect(tripRepo.buildTripsForAUser(1, destinationData)).to.deep.equal(finalData)
+  })
+
+  it('should be able to instatiate Trip objects', function() {
+    const tripList = tripRepo.buildTripsForAUser(1, destinationData)
+
+    expect(tripList[1]).to.be.an.instanceof(Trip)
   })
 })
