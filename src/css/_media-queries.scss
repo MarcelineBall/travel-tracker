@@ -1,5 +1,5 @@
 @media screen and (max-width: 900px) {
-  article{
+  .trip-card {
     flex-basis: 45vw
   }
   form {
@@ -7,7 +7,7 @@
   }
 }
 @media screen and (max-width: 650px) {
-  article{
+  .trip-card {
     flex-basis: 95vw
   }
   header {
