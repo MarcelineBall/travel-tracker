@@ -9,13 +9,15 @@ html {
 }
 
 form {
-  @include form-build;
+  @include main-structure;
 }
 
 header {
-  display: flex;
+  @include main-structure
+  flex-direction: row;
   justify-content: space-between;
-  padding: 5vh 2vw;
+  margin: 2vh 5vw;
+
 }
 
 body {
@@ -26,19 +28,19 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+
+  article {
+    width: 30vw;
+    border: 1px solid black;
+    background:$secondary-color;
+    flex-direction: column;
+    margin: 3vh 0 3vh 0;
+    border-radius: 13px;
+    align-items: center;
+    box-shadow: $shadow;
+  }
 }
 
-.trip-card {
-  width: 30vw;
-  border: 1px solid black;
-  background:$secondary-color;
-  display: flex;
-  flex-direction: column;
-  margin: 3vh 0 3vh 0;
-  border-radius: 13px;
-  align-items: center;
-  box-shadow: $shadow;
-}
 
 .hidden {
   display: none!important
