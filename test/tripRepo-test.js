@@ -97,7 +97,11 @@ describe('trip class', function() {
     expect(tripRepo.passTripById(134)).to.deep.equal(tripData.trips[0])
   })
 
+  it('should be able to return an array of trips by userID', function () {
+    expect(tripRepo.findTripsForAUser(1)).to.deep.equal([tripData.trips[0], tripData.trips[2]])
+  })
+
   it('should be able to return an array of trips by userID', function() {
-    expect(tripRepo.findTripsForAUser(1, destinationData)).to.deep.equal(finalData)
+    expect(tripRepo.buildTripsForAUser(1, destinationData)).to.deep.equal(finalData)
   })
 })
