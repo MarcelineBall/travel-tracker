@@ -4,9 +4,6 @@
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
-
 import domDisplay from './dom-display.js'
 import TripRepo from './tripRepo.js';
 import Trip from './trip.js';
@@ -58,7 +55,7 @@ function setVariables([userData, tripData, destinationData]) {
 }
 
 function loadDOM() {
-  domDisplay.displayTripCard(tripRepo.findTripsForAUser(user.id), tripCardDisplay)
+  domDisplay.displayTripCard(tripRepo.buildTripsForAUser(user.id, destinations.destinations), tripCardDisplay)
   domDisplay.displayUserName(user, userNameDisplay)
   domDisplay.displayTotalMoneySpent(calculateMoneySpent(), moneySpentDisplay)
   domDisplay.displayTripDestinations(destinations.destinations, formDestination)
@@ -144,6 +141,7 @@ function login() {
 function logUserIn(userId) {
   getSingleUser(userId)
   .then(data => user = new User(data))
+  .then(data => loadDataFromAPI())
   .then(data => loadDOM())
   .then(data => toggleDisplay())
 }

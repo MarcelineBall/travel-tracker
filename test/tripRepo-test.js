@@ -38,6 +38,44 @@ describe('trip class', function() {
       }
     ]
   }
+  let destinationData = [
+    {
+      id: 50,
+      destination: "Denver, USA",
+    },
+    {
+      id: 4,
+      destination: "Chicago, USA",
+    },
+    {
+      id: 12,
+      destination: "Detroit, USA",
+    }
+  ]
+  let finalData = [
+    {
+      id: 134,
+      userID: 1,
+      destinationID: 50,
+      travelers: 6,
+      date: "2020/02/13",
+      duration: 6,
+      status:"approved",
+      suggestedActivities:[],
+      destinationName: "Denver, USA"
+    },
+    {
+      id: 4,
+      userID: 1,
+      destinationID: 50,
+      travelers: 6,
+      date: "2020/02/13",
+      duration: 6,
+      status:"approved",
+      suggestedActivities:[],
+      destinationName: "Denver, USA"
+    }
+  ]
 
   beforeEach(function() {
   tripRepo = new TripRepo(tripData)
@@ -60,6 +98,6 @@ describe('trip class', function() {
   })
 
   it('should be able to return an array of trips by userID', function() {
-    expect(tripRepo.findTripsForAUser(1)).to.deep.equal([tripData.trips[0], tripData.trips[2]])
+    expect(tripRepo.findTripsForAUser(1, destinationData)).to.deep.equal(finalData)
   })
 })
