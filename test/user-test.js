@@ -14,9 +14,9 @@ describe('user class', function() {
       userID: 1,
       destinationID: 50,
       travelers: 6,
-      date: "2020/02/13",
+      date: '2020/02/13',
       duration: 6,
-      status: "approved",
+      status: 'approved',
       suggestedActivities: []
     }
   ];
