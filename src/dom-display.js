@@ -36,7 +36,15 @@ let domDisplay = {
   },
 
   displayTripPrice(price, element) {
-    element.insertAdjacentHTML('afterend', `<p>The total for the trip will be $${price}`)
+    element.innerText = `The total for the trip will be $${price}`
+  },
+
+  displayTripPriceError(element) {
+    element.innerText = 'There seems to be an error. Please check the inputs and try again'
+  },
+
+  clearTripErrorDisplay(element) {
+    element.innerText = ''
   },
 
   displayLoginError(element) {
@@ -47,8 +55,8 @@ let domDisplay = {
         <input type="text" id="userName">
         <label for="password">Password</label>
         <input type="password" id="password">
+        <button class="login-button" id="loginButton">Log in</button>
       </form>
-      <button class="login-button" id="loginButton">Log in</button>
     `
     element.insertAdjacentHTML('beforeend', '<h2>Matching user not found. Please check to make sure the username and password are correct and try again</h2>')
   },

@@ -33,6 +33,7 @@ const formPassword = document.querySelector('#password')
 const loginButton = document.querySelector('#loginButton')
 const htmlMain = document.querySelector('#main')
 const userDetailsSection = document.querySelector('#userDetails')
+const tripErrorDisplay = document.querySelector('#tripErrorDisplay')
 let tripRepo
 let users
 let destinations
@@ -95,10 +96,14 @@ function evaluatePrice() {
   const inputDestination = parseInt(formDestination.value)
   const inputTripDuration = parseInt(formTripDuration.value)
   const inputTravelers = parseInt(formTavelers.value)
-  const userDestination = destinations.destinations.find(destination => {return destination.id === inputDestination})
-  const sum = ((userDestination.estimatedFlightCostPerPerson * inputTravelers) + (userDestination.estimatedLodgingCostPerDay * inputTripDuration)) * 1.1
-  const roundedSum = Math.round(sum * 100) / 100
-  domDisplay.displayTripPrice(roundedSum, getPriceButton)
+  if (!isNaN(inputTripDuration) && !isNaN(inputTravelers)) {
+    const userDestination = destinations.destinations.find(destination => {return destination.id === inputDestination})
+    const sum = ((userDestination.estimatedFlightCostPerPerson * inputTravelers) + (userDestination.estimatedLodgingCostPerDay * inputTripDuration)) * 1.1
+    const roundedSum = Math.round(sum * 100) / 100
+    domDisplay.displayTripPrice(roundedSum, tripErrorDisplay)
+  } else {
+    domDisplay.displayTripPriceError(tripErrorDisplay)
+  }
 }
 
 function bookTrip() {
@@ -106,17 +111,22 @@ function bookTrip() {
   const inputTripDuration = parseInt(formTripDuration.value)
   const inputTravelers = parseInt(formTavelers.value)
   const tripDate = formStartDate.value.split('-').join('/')
-  const tripId = tripRepo.tripData.trips.length + 1
-  callPostRequest(tripId, user.id, inputDestination, inputTravelers, tripDate, inputTripDuration)
-  clearInputs()
+  if (!isNaN(inputTripDuration) && !isNaN(inputTravelers)) {
+    const tripId = tripRepo.tripData.trips.length + 1
+    callPostRequest(tripId, user.id, inputDestination, inputTravelers, tripDate, inputTripDuration)
+    clearInputs()
+    domDisplay.clearTripErrorDisplay(tripErrorDisplay)
+  } else {
+    domDisplay.displayTripPriceError(tripErrorDisplay)
+  }
 }
 
 function callPostRequest(tripId, userId, inputDestination, inputTravelers, tripDate, inputTripDuration) {
   postNewTrip(tripId, userId, inputDestination, inputTravelers, tripDate, inputTripDuration)
     .then(data => loadDataFromAPI())
+    .then(data => loadDOM())
     .then(data => logUserIn(user.id))
     .then(data => toggleDisplay())
-    .then(data => loadDOM())
 }
 
 function clearInputs() {
