@@ -6,7 +6,12 @@ class TripRepo {
   }
 
   passTripById(tripId) {
-    return this.tripData.trips.find(trip => trip.id === tripId)
+    const foundTrip = this.tripData.trips.find(trip => trip.id === tripId)
+    if(foundTrip) {
+      return foundTrip
+    } else {
+      return 'There are no trips with that id'
+    }
   }
 
   findTripsForAUser(userId) {

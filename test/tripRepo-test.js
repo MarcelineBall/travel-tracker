@@ -98,17 +98,29 @@ describe('trip class', function() {
     expect(tripRepo.passTripById(134)).to.deep.equal(tripData.trips[0])
   })
 
+  it('should return an error message if there are no trips with that id', function() {
+    expect(tripRepo.passTripById(3654)).to.equal('There are no trips with that id')
+  })
+
   it('should be able to return an array of trips by userID', function () {
     expect(tripRepo.findTripsForAUser(1)).to.deep.equal([tripData.trips[0], tripData.trips[2]])
   })
 
-  it('should be able to return an array of trips by userID', function() {
-    expect(tripRepo.buildTripsForAUser(1, destinationData)).to.deep.equal(finalData)
+  it('should be able to return an empty array if there are no trips for that user', function () {
+    expect(tripRepo.findTripsForAUser(53)).to.deep.equal([])
   })
 
   it('should be able to instatiate Trip objects', function() {
     const tripList = tripRepo.buildTripsForAUser(1, destinationData)
 
     expect(tripList[1]).to.be.an.instanceof(Trip)
+  })
+
+  it('should be able to return an array of trip objects by userID', function() {
+    expect(tripRepo.buildTripsForAUser(1, destinationData)).to.deep.equal(finalData)
+  })
+
+  it('should be able to return an empty array if there are no trips for that user', function () {
+    expect(tripRepo.findTripsForAUser(83)).to.deep.equal([])
   })
 })
