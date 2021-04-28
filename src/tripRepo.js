@@ -16,7 +16,6 @@ class TripRepo {
   buildTripsForAUser(userId, destinationData) {
     const userTrips = this.tripData.trips.filter(trip => trip.userID === userId)
     const tripClasses = []
-    console.log(userTrips)
     userTrips.forEach(userTrip => {
       tripClasses.push(userTrip = new Trip(userTrip, destinationData))
     })
