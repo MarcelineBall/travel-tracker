@@ -124,9 +124,9 @@ function bookTrip() {
 function callPostRequest(tripId, userId, inputDestination, inputTravelers, tripDate, inputTripDuration) {
   postNewTrip(tripId, userId, inputDestination, inputTravelers, tripDate, inputTripDuration)
     .then(data => loadDataFromAPI())
+    .then(data => loadDOM())
     .then(data => logUserIn(user.id))
     .then(data => toggleDisplay())
-    .then(data => loadDOM())
 }
 
 function clearInputs() {
