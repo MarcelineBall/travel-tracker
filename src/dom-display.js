@@ -36,7 +36,15 @@ let domDisplay = {
   },
 
   displayTripPrice(price, element) {
-    element.insertAdjacentHTML('afterend', `<p>The total for the trip will be $${price}`)
+    element.innerText = `The total for the trip will be $${price}`
+  },
+
+  displayTripPriceError(element) {
+    element.innerText = 'There seems to be an error. Please check the inputs and try again'
+  },
+
+  clearTripErrorDisplay(element) {
+    element.innerText = ''
   },
 
   displayLoginError(element) {

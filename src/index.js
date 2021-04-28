@@ -33,6 +33,7 @@ const formPassword = document.querySelector('#password')
 const loginButton = document.querySelector('#loginButton')
 const htmlMain = document.querySelector('#main')
 const userDetailsSection = document.querySelector('#userDetails')
+const tripErrorDisplay = document.querySelector('#tripErrorDisplay')
 let tripRepo
 let users
 let destinations
@@ -99,9 +100,9 @@ function evaluatePrice() {
     const userDestination = destinations.destinations.find(destination => {return destination.id === inputDestination})
     const sum = ((userDestination.estimatedFlightCostPerPerson * inputTravelers) + (userDestination.estimatedLodgingCostPerDay * inputTripDuration)) * 1.1
     const roundedSum = Math.round(sum * 100) / 100
-    domDisplay.displayTripPrice(roundedSum, getPriceButton)
-  }else {
-    console.log('dunno')
+    domDisplay.displayTripPrice(roundedSum, tripErrorDisplay)
+  } else {
+    domDisplay.displayTripPriceError(tripErrorDisplay)
   }
 }
 
@@ -114,6 +115,9 @@ function bookTrip() {
     const tripId = tripRepo.tripData.trips.length + 1
     callPostRequest(tripId, user.id, inputDestination, inputTravelers, tripDate, inputTripDuration)
     clearInputs()
+    domDisplay.clearTripErrorDisplay(tripErrorDisplay)
+  } else {
+    domDisplay.displayTripPriceError(tripErrorDisplay)
   }
 }
 
