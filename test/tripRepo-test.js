@@ -1,4 +1,5 @@
 import TripRepo from '../src/tripRepo.js'
+import Trip from '../src/trip.js'
 import { expect } from 'chai'
 
 describe('trip class', function() {
@@ -11,9 +12,9 @@ describe('trip class', function() {
         userID: 1,
         destinationID: 50,
         travelers: 6,
-        date: "2020/02/13",
+        date: '2020/02/13',
         duration: 6,
-        status: "approved",
+        status: 'approved',
         suggestedActivities: []
       },
       {
@@ -21,9 +22,9 @@ describe('trip class', function() {
         userID: 6,
         destinationID: 12,
         travelers: 3,
-        date: "2020/05/22",
+        date: '2020/05/22',
         duration: 6,
-        status: "pending",
+        status: 'pending',
         suggestedActivities: []
       },
       {
@@ -31,9 +32,9 @@ describe('trip class', function() {
         userID: 1,
         destinationID: 50,
         travelers: 6,
-        date: "2020/02/13",
+        date: '2020/02/13',
         duration: 6,
-        status: "approved",
+        status: 'approved',
         suggestedActivities: []
       }
     ]
@@ -41,15 +42,15 @@ describe('trip class', function() {
   let destinationData = [
     {
       id: 50,
-      destination: "Denver, USA",
+      destination: 'Denver, USA',
     },
     {
       id: 4,
-      destination: "Chicago, USA",
+      destination: 'Chicago, USA',
     },
     {
       id: 12,
-      destination: "Detroit, USA",
+      destination: 'Detroit, USA',
     }
   ]
   let finalData = [
@@ -58,22 +59,22 @@ describe('trip class', function() {
       userID: 1,
       destinationID: 50,
       travelers: 6,
-      date: "2020/02/13",
+      date: '2020/02/13',
       duration: 6,
-      status: "approved",
+      status: 'approved',
       suggestedActivities: [],
-      destinationName: "Denver, USA"
+      destinationName: 'Denver, USA'
     },
     {
       id: 4,
       userID: 1,
       destinationID: 50,
       travelers: 6,
-      date: "2020/02/13",
+      date: '2020/02/13',
       duration: 6,
-      status: "approved",
+      status: 'approved',
       suggestedActivities: [],
-      destinationName: "Denver, USA"
+      destinationName: 'Denver, USA'
     }
   ]
 
@@ -97,7 +98,29 @@ describe('trip class', function() {
     expect(tripRepo.passTripById(134)).to.deep.equal(tripData.trips[0])
   })
 
-  it('should be able to return an array of trips by userID', function() {
-    expect(tripRepo.findTripsForAUser(1, destinationData)).to.deep.equal(finalData)
+  it('should return an error message if there are no trips with that id', function() {
+    expect(tripRepo.passTripById(3654)).to.equal('There are no trips with that id')
+  })
+
+  it('should be able to return an array of trips by userID', function () {
+    expect(tripRepo.findTripsForAUser(1)).to.deep.equal([tripData.trips[0], tripData.trips[2]])
+  })
+
+  it('should be able to return an empty array if there are no trips for that user', function () {
+    expect(tripRepo.findTripsForAUser(53)).to.deep.equal([])
+  })
+
+  it('should be able to instatiate Trip objects', function() {
+    const tripList = tripRepo.buildTripsForAUser(1, destinationData)
+
+    expect(tripList[1]).to.be.an.instanceof(Trip)
+  })
+
+  it('should be able to return an array of trip objects by userID', function() {
+    expect(tripRepo.buildTripsForAUser(1, destinationData)).to.deep.equal(finalData)
+  })
+
+  it('should be able to return an empty array if there are no trips for that user', function () {
+    expect(tripRepo.findTripsForAUser(83)).to.deep.equal([])
   })
 })

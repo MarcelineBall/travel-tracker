@@ -1,5 +1,5 @@
-// import chai from 'chai';
 import User from '../src/user.js'
+import Trip from '../src/trip.js'
 import { expect } from 'chai'
 
 describe('user class', function() {
@@ -14,9 +14,9 @@ describe('user class', function() {
       userID: 1,
       destinationID: 50,
       travelers: 6,
-      date: "2020/02/13",
+      date: '2020/02/13',
       duration: 6,
-      status: "approved",
+      status: 'approved',
       suggestedActivities: []
     }
   ];
@@ -40,6 +40,15 @@ describe('user class', function() {
   it('should be able to take in trips', function() {
     expect(user.trips).to.deep.equal([])
     user.trips.push(tripInfo[0])
+
     expect(user.trips).to.deep.equal(tripInfo)
+  })
+
+  it('should be able to take in Trip objects', function() {
+    expect(user.trips).to.deep.equal([])
+    const trip = new Trip(tripInfo, [{destination: 'Denver, USA'}])
+    user.trips.push(trip)
+
+    expect(user.trips[0]).to.be.an.instanceof(Trip)
   })
 })

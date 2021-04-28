@@ -11,11 +11,19 @@ class Trip {
     this.destinationName = this.findDestinationName(destinationData);
   }
 
-  findDestinationName(destinationStuff) {
-    const foundDestination = destinationStuff.find(destination => {
-      return destination.id === this.destinationID
-    })
-    return foundDestination.destination
+  findDestinationName(destinationInfo) {
+    if(destinationInfo) {
+      const foundDestination = destinationInfo.find(destination => {
+        return destination.id === this.destinationID
+      })
+      if(foundDestination){
+        return foundDestination.destination
+      } else {
+        return 'error: Destination unknown'
+      }
+    } else {
+      return 'error: Improper destination data'
+    }
   }
 }
 
