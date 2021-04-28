@@ -55,7 +55,7 @@ function setVariables([userData, tripData, destinationData]) {
 }
 
 function loadDOM() {
-  domDisplay.displayTripCard(tripRepo.findTripsForAUser(user.id), tripCardDisplay)
+  domDisplay.displayTripCard(tripRepo.buildTripsForAUser(user.id, destinations.destinations), tripCardDisplay)
   domDisplay.displayUserName(user, userNameDisplay)
   domDisplay.displayTotalMoneySpent(calculateMoneySpent(), moneySpentDisplay)
   domDisplay.displayTripDestinations(destinations.destinations, formDestination)
@@ -141,6 +141,7 @@ function login() {
 function logUserIn(userId) {
   getSingleUser(userId)
   .then(data => user = new User(data))
+  .then(data => loadDataFromAPI())
   .then(data => loadDOM())
   .then(data => toggleDisplay())
 }

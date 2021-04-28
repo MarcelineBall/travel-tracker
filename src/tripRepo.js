@@ -9,10 +9,16 @@ class TripRepo {
     return this.tripData.trips.find(trip => trip.id === tripId)
   }
 
-  findTripsForAUser(userId, destinationData) {
+  findTripsForAUser(userId) {
+    return this.tripData.trips.filter(trip => trip.userID === userId)
+  }
+
+  buildTripsForAUser(userId, destinationData) {
     const userTrips = this.tripData.trips.filter(trip => trip.userID === userId)
-    const tripClasses = userTrips.map(userTrip => {
-      return userTrip = new Trip(userTrip, destinationData)
+    const tripClasses = []
+    console.log(userTrips)
+    userTrips.forEach(userTrip => {
+      tripClasses.push(userTrip = new Trip(userTrip, destinationData))
     })
     return tripClasses
   }
